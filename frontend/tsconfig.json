@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "types": ["jest", "node", "@testing-library/jest-dom"],
+    "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true
+  }
+}

@@ -1,0 +1,31 @@
+:root {
+  --bg-color: #f0f2f5;
+  --card-bg: #ffffff;
+  --primary: #1e90ff;
+  --text: #333333;
+  --radius: 8px;
+  --shadow: 0 4px 12px rgba(0,0,0,0.05);
+  --font: 'Inter', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg-color);
+  font-family: var(--font), serif;
+  color: var(--text);
+}
+
+@media (max-width: 600px) {
+  :root {
+    --radius: 6px;
+  }
+  body {
+    font-size: 14px;
+  }
+}

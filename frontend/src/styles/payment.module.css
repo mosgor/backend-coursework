@@ -1,0 +1,54 @@
+.payment {
+  max-width: 400px;
+  margin: 3rem auto;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.payment__title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.payment__summary {
+  padding: 1rem;
+  background: #fafafa;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+}
+
+.payment__button {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .payment {
+    margin: 2rem 2rem;
+    padding: 1.5rem;
+  }
+  .payment__title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .payment {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  .payment__summary {
+    padding: 0.75rem;
+  }
+  .payment__button {
+    padding: 0.5rem;
+  }
+}

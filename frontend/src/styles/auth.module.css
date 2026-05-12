@@ -1,0 +1,56 @@
+.auth {
+  max-width: 400px;
+  margin: 3rem auto;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.auth__title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.auth__input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+}
+
+.auth__button {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .auth {
+    margin: 2rem 2rem;
+    padding: 1.5rem;
+  }
+  .auth__title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .auth {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  .auth__input {
+    padding: 0.5rem;
+  }
+  .auth__button {
+    padding: 0.5rem;
+  }
+}
+

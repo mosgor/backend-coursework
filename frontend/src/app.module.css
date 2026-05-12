@@ -1,0 +1,77 @@
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app__logo {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.app__nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.app__link {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.2s ease;
+}
+
+.app__link:hover {
+  background: rgba(30,144,255,0.1);
+}
+
+.app__link--button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.app__content {
+  padding: 2rem 10rem;
+}
+
+@media (max-width: 900px) {
+  .app__content {
+    padding: 1rem 2rem;
+  }
+
+  .app__nav {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .app__link {
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .app__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .app__content {
+    padding: 1rem;
+  }
+
+  .app__link {
+    padding: 0.2rem 0.4rem;
+  }
+}

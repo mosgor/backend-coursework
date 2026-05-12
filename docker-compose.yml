@@ -1,0 +1,96 @@
+services:
+  db:
+    image: postgres:17
+    container_name: postgres
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=adm
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=postgres
+    volumes:
+      - .\db_data:/var/lib/postgresql/data
+      - .\scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5438:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U adm -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  back:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    environment:
+      - DJANGO_SECRET_KEY=a-string-secret-at-least-256-bits-long
+      - DJANGO_DEBUG=False
+      - EVENTS_STORAGE_HOST=db
+      - EVENTS_STORAGE_PORT=5432
+      - EVENTS_STORAGE_USER=adm
+      - EVENTS_STORAGE_PASSWORD=123
+      - EVENTS_STORAGE_NAME=postgres
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - REDIS_PASSWORD=
+      - JWT_SECRET=a-string-secret-at-least-256-bits-long
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: always
+    expose:
+      - "8090"
+
+  migrate:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    environment:
+      - EVENTS_STORAGE_HOST=db
+      - EVENTS_STORAGE_PORT=5432
+      - EVENTS_STORAGE_USER=adm
+      - EVENTS_STORAGE_PASSWORD=123
+      - EVENTS_STORAGE_NAME=postgres
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint: ["python", "manage.py", "migrate", "--noinput"]
+
+  nginx:
+    image: nginx:1.29-alpine
+    container_name: nginx_lb
+    ports:
+      - "8090:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - back
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-course
+    restart: on-failure
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - ./redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  front:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: front
+    ports:
+      - "3000:3000" 
+    depends_on:
+      - nginx
